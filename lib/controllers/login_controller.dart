@@ -31,9 +31,15 @@ class LoginController extends GetxController {
   final CreateAccPhoneNoController = TextEditingController();
   final CreateAccPasswordController = TextEditingController();
   final forgotemailController = TextEditingController();
-  final  NewpasswordController = TextEditingController();
-  final  NewconfirmPasswordController = TextEditingController();
-  final  GetStartedAngleTextController = TextEditingController();
+  final NewpasswordController = TextEditingController();
+  final NewconfirmPasswordController = TextEditingController();
+  final GetStartedAngleTextController = TextEditingController();
+
+  final brokerNameCtr = TextEditingController();
+  final clientIdCtr = TextEditingController();
+  final pinCtr = TextEditingController();
+  final totpCtr = TextEditingController();
+
   var isLoading = false.obs;
   var isPasswordVisible = false.obs;
   var isNewPasswordVisible = false.obs;
@@ -43,7 +49,6 @@ class LoginController extends GetxController {
   final agreedToTerms = false.obs;
   String textGetOtp = "";
   var isChecked = false.obs;
-
 
   void showToast({required BuildContext context, required String msg}) {
     Fluttertoast.showToast(
@@ -55,28 +60,32 @@ class LoginController extends GetxController {
       textColor: MyColor.black,
     );
   }
+
 //profile page scrren data
   var lastSynced = '20th July, 2024'.obs;
   void syncPortfolio() {
     lastSynced.value = "20th September, 2024";
   }
+
   //end
   @override
   void onInit() {
     super.onInit();
   }
+
   void toggleCheckbox() {
     isChecked.value = !isChecked.value;
   }
 
-  void DontAskAgainSkip() {
-  }
+  void DontAskAgainSkip() {}
   void togglePasswordVisibility() {
     isPasswordVisible.value = !isPasswordVisible.value;
   }
+
   void togglePasswordVisibilityReset() {
     isNewPasswordVisible.value = !isNewPasswordVisible.value;
   }
+
   void toggleConfirmPasswordVisibilityReset() {
     isNewConfirmPasswordVisible.value = !isNewConfirmPasswordVisible.value;
   }
@@ -84,18 +93,20 @@ class LoginController extends GetxController {
   void rememberMe() {
     agreedToTerms.value = !agreedToTerms.value;
   }
-  void goToSignUpscreen(){
+
+  void goToSignUpscreen() {
     Get.to(() => SignUpPage());
   }
-  void loginWithFaceBook(){
+
+  void loginWithFaceBook() {
     // Get.to(SignUpPage());
-  }void loginWithGoogle(){
+  }
+  void loginWithGoogle() {
     // Get.to(SignUpPage());
   }
 
   Future<void> signInUser() async {
     try {
-      // String? token = await FirebaseMessaging.instance.getToken();
       String token = "";
 
       SignInRequest signInRequest = SignInRequest(
@@ -114,23 +125,25 @@ class LoginController extends GetxController {
         if (responseModel.status == 200) {
           log("Sign-In Successful: ${responseModel.payload}");
 
-          if (responseModel.payload.userId != 0) {
-            await SHDFClass.saveIntValue(KeyConstants.userId, responseModel.payload.userId);
-            await SHDFClass.saveStringValue(KeyConstants.accesToken, responseModel.payload.apiToken.access);
-            await SHDFClass.saveStringValue(KeyConstants.email, responseModel.payload.email);
-            await SHDFClass.saveStringValue(KeyConstants.phone, responseModel.payload.mobile);
-          }
-          // Get.offAll(() => ProfilePage());
+          await SHDFClass.saveIntValue(KeyConstants.userId, responseModel.payload.userId!);
+          await SHDFClass.saveStringValue(KeyConstants.accesToken, responseModel.payload.apiToken!.access);
+          await SHDFClass.saveStringValue(KeyConstants.email, responseModel.payload.email!);
+          await SHDFClass.saveStringValue(KeyConstants.phone, responseModel.payload.mobile!);
+
+          await SHDFClass.saveStringValue(KeyConstants.broker, responseModel.payload.selectedBroker!);
+          await SHDFClass.saveStringValue(KeyConstants.clientId, responseModel.payload.clientId!);
+          await SHDFClass.saveStringValue(KeyConstants.pin, responseModel.payload.pin!);
+          await SHDFClass.saveStringValue(KeyConstants.totp, responseModel.payload.totp!);
+
           Get.offAll(() => GetStartedScreen());
         } else {
           showDialog(
             context: Get.context!,
-            builder: (BuildContext context1) =>
-                OKDialog(
-                  title: "",
-                  descriptions: responseModel.msg,
-                  img: errorIcon,
-                ),
+            builder: (BuildContext context1) => OKDialog(
+              title: "",
+              descriptions: responseModel.msg,
+              img: errorIcon,
+            ),
           );
         }
       }
@@ -139,18 +152,21 @@ class LoginController extends GetxController {
       showToast(context: Get.context!, msg: "Error occurred during sign-in.");
     }
   }
-  void clearFields(){
+
+  void clearFields() {
     emailController.clear();
     passwordController.clear();
   }
-  void ResetpasswordclearFields(){
+
+  void ResetpasswordclearFields() {
     NewpasswordController.clear();
     NewconfirmPasswordController.clear();
   }
-  void clearSignUpFeilds(){
+
+  void clearSignUpFeilds() {
     CreateAccemailController.clear();
     CreateAccPasswordController.clear();
-    CreateAccUserNameController.clear() ;
+    CreateAccUserNameController.clear();
     CreateAccPhoneNoController.clear();
   }
 
@@ -234,11 +250,11 @@ class LoginController extends GetxController {
         if (responseModel.status == 200) {
           textGetOtp = responseModel.otp;
           print("OTP Request Successful: ${textGetOtp}");
-          if(isNormalFlow) {
-            if(type == 'signup') {
+          if (isNormalFlow) {
+            if (type == 'signup') {
               Get.to(() => LoginEnterOTP(""));
-            }else if (type == 'forget_pwd'){
-              print("forget_pwd click") ;
+            } else if (type == 'forget_pwd') {
+              print("forget_pwd click");
               Get.to(() => LoginEnterOTP("forgot"));
             }
           }
@@ -265,7 +281,6 @@ class LoginController extends GetxController {
     required String mobile,
     required String password,
   }) async {
-
     SignUpRequest signUpRequest = SignUpRequest(
       username: username,
       password: password,
@@ -281,7 +296,7 @@ class LoginController extends GetxController {
       await SHDFClass.saveStringValue(KeyConstants.email, response.payload.email);
       await SHDFClass.saveStringValue(KeyConstants.phone, response.payload.mobile);
       await SHDFClass.saveStringValue(KeyConstants.accesToken, response.payload.apiToken.access);
-       Get.offAll(() => GetStartedScreen());
+      Get.offAll(() => GetStartedScreen());
       Fluttertoast.showToast(msg: response.msg);
     } else {
       DisplaySnackbar().errorSnackBar(title: "Failed", msg: response?.msg ?? "Signup failed. Please try again.");
@@ -296,51 +311,12 @@ class LoginController extends GetxController {
 
     final response = await Repository.hitConformPasswordApi(ConfromPassowrdRequests);
 
-      if (response != null && response.status == 200) {
-        DisplaySnackbar().successSnackBar(
-          title: "Success",
-          msg: response.msg,
-        );
-        Get.offAll(() => SignInScreen());
-      } else {
-        DisplaySnackbar().errorSnackBar(
-          title: "Failed",
-          msg: response?.msg ?? "An error occurred",
-        );
-      }
-    }
-
-
-  Future<void> getStartedBrokerConnectNow() async {
-
-    int? userId = await SHDFClass.readIntValue(KeyConstants.userId, 0);
-    String? accessToken =
-    await SHDFClass.readStringValue(KeyConstants.accesToken,"");
-
-    if (userId == null || userId == 0) {
-      DisplaySnackbar().errorSnackBar(
-        title: "Error",
-        msg: "User ID not found.",
-      );
-      return;
-    }
-
-    GetStartedBrokerRequest getStartedBrokerRequest = GetStartedBrokerRequest(
-      userId: userId.toString(),
-      brokerName: "ANGLEONE",
-      clientId: "A53471568",
-      pin: "4747",
-      totp: "X3GQVYF2SO7LQY5ESGD5XYEWZQ",
-    );
-
-    final response = await Repository.hitPostSaveBrokerApi(getStartedBrokerRequest);
-
     if (response != null && response.status == 200) {
       DisplaySnackbar().successSnackBar(
         title: "Success",
         msg: response.msg,
       );
-      Get.offAll(() => PortfolioListingPage());
+      Get.offAll(() => SignInScreen());
     } else {
       DisplaySnackbar().errorSnackBar(
         title: "Failed",
@@ -349,25 +325,60 @@ class LoginController extends GetxController {
     }
   }
 
- Future<void> getPortfolioProfileViewData() async {
+  Future<void> getStartedBrokerConnectNow() async {
+    if (brokerNameCtr.text.isEmpty) {
+      DisplaySnackbar().errorSnackBar(
+        title: "Failed",
+        msg: "Please enter broker name",
+      );
+      return;
+    } else if (clientIdCtr.text.isEmpty) {
+      DisplaySnackbar().errorSnackBar(
+        title: "Failed",
+        msg: "Please enter client ID",
+      );
+      return;
+    } else if (pinCtr.text.isEmpty) {
+      DisplaySnackbar().errorSnackBar(
+        title: "Failed",
+        msg: "Please enter PIN",
+      );
+      return;
+    } else if (totpCtr.text.isEmpty) {
+      DisplaySnackbar().errorSnackBar(
+        title: "Failed",
+        msg: "Please enter TOTP",
+      );
+      return;
+    } else {
+      int? userId = await SHDFClass.readIntValue(KeyConstants.userId, 0);
 
-    int? userId = await SHDFClass.readIntValue(KeyConstants.userId, 0);
+      GetStartedBrokerRequest getStartedBrokerRequest = GetStartedBrokerRequest(
+        userId: userId.toString(),
+        brokerName: brokerNameCtr.text,
+        clientId: clientIdCtr.text,
+        pin: pinCtr.text,
+        totp: totpCtr.text,
+      );
 
-    GetProfileRequest getProfileRequest = GetProfileRequest(
-      userId: userId.toString(),
-    );
+      final response = await Repository.hitPostSaveBrokerApi(getStartedBrokerRequest);
 
-    final response = await Repository.hitPostGetProfileApi(getProfileRequest);
-
-    // if (response != null && response.status == 200) {
-    //
-    // } else {
-    //   DisplaySnackbar().errorSnackBar(
-    //     title: "Failed",
-    //     msg: response?.msg ?? "An error occurred",
-    //   );
-    // }
+      if (response != null && response.status == 200) {
+        DisplaySnackbar().successSnackBar(
+          title: "Success",
+          msg: response.msg,
+        );
+        Get.offAll(() => PortfolioListingPage());
+      } else {
+        DisplaySnackbar().errorSnackBar(
+          title: "Failed",
+          msg: response?.msg ?? "An error occurred",
+        );
+      }
+    }
   }
+
+
 
   @override
   void onClose() {
@@ -375,5 +386,4 @@ class LoginController extends GetxController {
     passwordController.dispose();
     super.onClose();
   }
-
 }

@@ -28,12 +28,6 @@ class _SplashScreenState extends State<SplashScreen> {
       statusBarIconBrightness: Brightness.dark
     ));
     Future.delayed(Duration(seconds: 4), () => handleSession(context));
-    // Future.delayed(const Duration(seconds: 3), () {
-    //   Navigator.pushReplacement(
-    //     context,
-    //     MaterialPageRoute(builder: (context) => SignInScreen()),
-    //   );
-    // });
   }
 
 

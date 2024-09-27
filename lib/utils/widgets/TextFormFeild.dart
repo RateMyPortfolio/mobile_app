@@ -33,7 +33,7 @@ class TextFromField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 8),
+        const SizedBox(height: 5),
         TextFormField(
           controller: controller,
           obscureText: obscureText,

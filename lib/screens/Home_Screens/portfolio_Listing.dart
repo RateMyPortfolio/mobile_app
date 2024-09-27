@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rate_my_portfolio/resources/my_colors.dart';
 import 'package:rate_my_portfolio/screens/Home_Screens/portfolio_ProfilePage.dart';
+import 'package:rate_my_portfolio/screens/starting_screens/SignIn_screen.dart';
+import 'package:rate_my_portfolio/screens/starting_screens/splash_screen.dart';
+import 'package:rate_my_portfolio/utils/local_database/shdf.dart';
 
 import '../../controllers/homescreen_controller.dart';
 import '../../resources/my_assets.dart';
@@ -48,7 +51,33 @@ class _PortfolioListingPageState extends State<PortfolioListingPage> {
                 width: 22,
                 height: 22,
               ),
-              onPressed: () {},
+              onPressed: () {
+                showDialog(context: context, builder: (context){
+                  return AlertDialog(
+                    backgroundColor: Colors.white,
+                    contentPadding: EdgeInsets.all(10),
+                    shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    content: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          child: Text("Do You Want To Logout",style: TextStyle(color: Colors.black,fontSize: 18),),
+                        ),
+                        SizedBox(height: 5,),
+                        MaterialButton(
+                          color: MyColor.primaryDarkColor,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          onPressed: () async {
+                           await SHDFClass.clearPreference();
+                           Get.offAll(()=>SignInScreen());
+                        },
+                        child: Text("Logout"),)
+                      ],
+                    ),
+                  );
+                });
+              },
             ),
           ),
         ],

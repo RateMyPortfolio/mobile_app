@@ -20,17 +20,19 @@ class LabeledTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Column(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 14,
-              color: MyColor.darkGreyColor,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 2.0),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 14,
+                color: MyColor.darkGreyColor,
+              ),
             ),
           ),
-          const SizedBox(height: 4),
         ],
       ),
     );

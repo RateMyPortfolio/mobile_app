@@ -81,23 +81,23 @@ class Data {
 }
 
 class Holdings {
-  double? ltp;
+  String? ltp;
   String? isin;
-  double? close;
-  int? haircut;
+  String? close;
+  String? haircut;
   String? product;
   String? exchange;
-  int? quantity;
-  int? t1quantity;
+  String? quantity;
+  String? t1quantity;
   String? symboltoken;
-  double? averageprice;
-  double? pnlpercentage;
-  int? profitandloss;
+  String? averageprice;
+  String? pnlpercentage;
+  String? profitandloss;
   String? tradingsymbol;
-  Null? collateraltype;
-  int? realisedquantity;
-  int? authorisedquantity;
-  Null? collateralquantity;
+  String? collateraltype;
+  String? realisedquantity;
+  String? authorisedquantity;
+  String? collateralquantity;
 
   Holdings(
       {this.ltp,
@@ -119,23 +119,23 @@ class Holdings {
         this.collateralquantity});
 
   Holdings.fromJson(Map<String, dynamic> json) {
-    ltp = json['ltp'];
-    isin = json['isin'];
-    close = json['close'];
-    haircut = json['haircut'];
-    product = json['product'];
-    exchange = json['exchange'];
-    quantity = json['quantity'];
-    t1quantity = json['t1quantity'];
-    symboltoken = json['symboltoken'];
-    averageprice = json['averageprice'];
-    pnlpercentage = json['pnlpercentage'];
-    profitandloss = json['profitandloss'];
-    tradingsymbol = json['tradingsymbol'];
-    collateraltype = json['collateraltype'];
-    realisedquantity = json['realisedquantity'];
-    authorisedquantity = json['authorisedquantity'];
-    collateralquantity = json['collateralquantity'];
+    ltp = json['ltp'].toString();
+    isin = json['isin'].toString();
+    close = json['close'].toString();
+    haircut = json['haircut'].toString();
+    product = json['product'].toString();
+    exchange = json['exchange'].toString();
+    quantity = json['quantity'].toString();
+    t1quantity = json['t1quantity'].toString();
+    symboltoken = json['symboltoken'].toString();
+    averageprice = json['averageprice'].toString();
+    pnlpercentage = json['pnlpercentage'].toString();
+    profitandloss = json['profitandloss'].toString();
+    tradingsymbol = json['tradingsymbol'].toString();
+    collateraltype = json['collateraltype'].toString();
+    realisedquantity = json['realisedquantity'].toString();
+    authorisedquantity = json['authorisedquantity'].toString();
+    collateralquantity = json['collateralquantity'].toString();
   }
 
   Map<String, dynamic> toJson() {

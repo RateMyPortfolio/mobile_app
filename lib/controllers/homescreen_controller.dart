@@ -1,4 +1,11 @@
 import 'package:get/get.dart';
+import 'package:rate_my_portfolio/models/responce/post_GetProfile_responce.dart';
+
+import '../models/request/post_getprofile_request.dart';
+import '../network/repositary.dart';
+import '../utils/local_database/key_constants.dart';
+import '../utils/local_database/shdf.dart';
+import '../utils/widgets/snackbar.dart';
 
 class HomeScreenController extends GetxController {
   var portfolios = <Portfolio>[].obs;
@@ -6,6 +13,11 @@ class HomeScreenController extends GetxController {
   //filterpage data
   var selectedPortfolioSize = '<1,000'.obs;
   var selectedPortfolioReturn = '>15%'.obs;
+
+  Totalholding? totalHoldings;
+
+  List<Holdings> holdingsList = [];
+
   void updatePortfolioSize(String value) {
     selectedPortfolioSize.value = value;
   }
@@ -26,6 +38,32 @@ class HomeScreenController extends GetxController {
       Portfolio(username: '@zuber', profileName: 'Reliance Capital', performanceMetricsLeft: '10,000', performanceMetricsRight: 'Test 2', boughtStocks: ['In Rosys', 'HDFC'], soldStocks: ['Colgate', 'HUL'], isPremium: false),
       Portfolio(username: '@ajaysingh', profileName: 'Reliance Capital', performanceMetricsLeft: 'Test 1', performanceMetricsRight: 'Test 2', boughtStocks: ['In Rosys', 'HDFC'], soldStocks: ['Colgate', 'HUL'], isPremium: true),
     ];
+  }
+
+
+  Future<void> getPortfolioProfileViewData() async {
+    totalHoldings = null;
+    holdingsList = [];
+    int? userId = await SHDFClass.readIntValue(KeyConstants.userId, 0);
+
+    GetProfileRequest getProfileRequest = GetProfileRequest(
+      userId: userId.toString(),
+    );
+
+    final response = await Repository.hitPostGetProfileApi(getProfileRequest);
+
+    if (response != null && response.status == 200) {
+
+      if(response.payload != null && response.payload!.data != null) {
+        totalHoldings = response.payload!.data!.totalholding;
+        holdingsList = response.payload!.data!.holdings!;
+      }
+    } else {
+      DisplaySnackbar().errorSnackBar(
+        title: "Failed",
+        msg: response?.msg ?? "An error occurred",
+      );
+    }
   }
 }
 

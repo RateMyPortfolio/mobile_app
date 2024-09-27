@@ -63,7 +63,6 @@ class SHDFClass {
 
   static clearPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-
     await preferences.clear();
   }
 
