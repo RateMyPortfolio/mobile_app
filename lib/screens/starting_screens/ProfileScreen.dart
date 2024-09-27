@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rate_my_portfolio/screens/starting_screens/SignUp_Screen.dart';
 
+import '../Home_Screens/portfolio_Listing.dart';
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -27,7 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
             const CircleAvatar(
               radius: 50,
               backgroundImage: NetworkImage(
-                  'https://via.placeholder.com/150'), // Replace with actual image URL
+                  'https://via.placeholder.com/150'),
             ),
             const SizedBox(height: 20),
 
@@ -54,7 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
             // Edit Profile Button
             ElevatedButton.icon(
               onPressed: () {
-                // Navigate to edit profile or any other action
+                Get.to(() => PortfolioListingPage());
               },
               icon: const Icon(Icons.edit),
               label: const Text('Edit Profile'),

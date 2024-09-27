@@ -3,10 +3,14 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../models/request/post_SignUp_request.dart';
 import '../models/request/post_conformpassword_request.dart';
+import '../models/request/post_getprofile_request.dart';
+import '../models/request/post_getstartedBroker_request.dart';
 import '../models/request/post_signIn_request.dart';
 import '../models/request/send_OTP_request.dart';
+import '../models/responce/getStartedBroker_responce.dart';
 import '../models/responce/get_SignUp_responce.dart';
 import '../models/responce/get_signIn_responce.dart';
+import '../models/responce/post_GetProfile_responce.dart';
 import '../models/responce/post_conformpassword_responce.dart';
 import '../models/responce/send_OTP_responce.dart';
 import '../utils/dialog/ErrorDialog.dart';
@@ -74,6 +78,37 @@ class Repository {
     } else if (results['status'] == 403) {
       Get.dialog(ErrorDialog(msg: "${results['msg']}"));
 
+    }
+    return responseModel;
+  }
+
+  static Future<GetStartedBrokerresponce?> hitPostSaveBrokerApi(GetStartedBrokerRequest request) async {
+    GetStartedBrokerresponce? responseModel;
+
+    final results = await ApiClient().requestPost(
+      url: ApiConstant.postSaveBrokerApi,
+      parameters: json.encode(request.toJson()),
+    );
+    if (results!['status'] == 200) {
+      print("results results :--- ${results['status']}");
+      responseModel = GetStartedBrokerresponce.fromJson(results);
+    } else if (results['status'] == 403) {
+      Get.dialog(ErrorDialog(msg: "${results['msg']}"));
+
+    }
+    return responseModel;
+  }
+
+  static Future<GetProfileResponse?> hitPostGetProfileApi(GetProfileRequest request) async {
+    GetProfileResponse? responseModel;
+
+    final results = await ApiClient().requestPost(
+      url: ApiConstant.postGetProfileApi,
+      parameters: json.encode(request.toJson()),
+    );
+    if (results != null) {
+      print("results results :--- ${results['status']}");
+      responseModel = GetProfileResponse.fromJson(results);
     }
     return responseModel;
   }

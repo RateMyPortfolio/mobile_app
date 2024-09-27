@@ -13,8 +13,8 @@ class MyColor {
   static const Color whiteDarkGreyColor = Color(0xFF999A9D);
   static const Color TextFormBorderGreyColor = Color(0xF5D3DEED);
   static const Color darkGreyColor = Color(0xFF464E5F);
-
-  //static const Color primaryDarkColor = Color.fromARGB(255, 36, 20, 105);
+  static const Color previewIndicatorColor = Color(0xFFAAA1A1);
+  static const Color PortfolioPercentagecolor = Color(0xFF1FBC40);
 
   static const Color white = Color.fromARGB(255, 255, 255, 255);
   static const Color black = Color.fromARGB(255, 0, 0, 0);

@@ -4,15 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:rate_my_portfolio/resources/my_colors.dart';
+import 'package:rate_my_portfolio/screens/Home_Screens/portfolio_Listing.dart';
 import 'package:rate_my_portfolio/screens/starting_screens/SignIn_screen.dart';
 import '../models/request/post_SignUp_request.dart';
 import '../models/request/post_conformpassword_request.dart';
+import '../models/request/post_getprofile_request.dart';
+import '../models/request/post_getstartedBroker_request.dart';
 import '../models/request/post_signIn_request.dart';
 import '../models/responce/get_signIn_responce.dart';
 import '../models/responce/send_OTP_responce.dart';
 import '../models/request/send_OTP_request.dart';
 import '../network/repositary.dart';
 import '../resources/my_assets.dart';
+import '../screens/starting_screens/GetStarted_Screen.dart';
 import '../screens/starting_screens/LoginEnterOTP.dart';
 import '../screens/starting_screens/ProfileScreen.dart';
 import '../screens/starting_screens/SignUp_Screen.dart';
@@ -29,6 +33,7 @@ class LoginController extends GetxController {
   final forgotemailController = TextEditingController();
   final  NewpasswordController = TextEditingController();
   final  NewconfirmPasswordController = TextEditingController();
+  final  GetStartedAngleTextController = TextEditingController();
   var isLoading = false.obs;
   var isPasswordVisible = false.obs;
   var isNewPasswordVisible = false.obs;
@@ -50,17 +55,18 @@ class LoginController extends GetxController {
       textColor: MyColor.black,
     );
   }
-
+//profile page scrren data
+  var lastSynced = '20th July, 2024'.obs;
+  void syncPortfolio() {
+    lastSynced.value = "20th September, 2024";
+  }
+  //end
   @override
   void onInit() {
     super.onInit();
   }
   void toggleCheckbox() {
     isChecked.value = !isChecked.value;
-  }
-
-  void ConnectNow() {
-    Get.to(() => SignUpPage());
   }
 
   void DontAskAgainSkip() {
@@ -110,10 +116,12 @@ class LoginController extends GetxController {
 
           if (responseModel.payload.userId != 0) {
             await SHDFClass.saveIntValue(KeyConstants.userId, responseModel.payload.userId);
+            await SHDFClass.saveStringValue(KeyConstants.accesToken, responseModel.payload.apiToken.access);
             await SHDFClass.saveStringValue(KeyConstants.email, responseModel.payload.email);
             await SHDFClass.saveStringValue(KeyConstants.phone, responseModel.payload.mobile);
           }
-          Get.offAll(() => ProfilePage());
+          // Get.offAll(() => ProfilePage());
+          Get.offAll(() => GetStartedScreen());
         } else {
           showDialog(
             context: Get.context!,
@@ -272,7 +280,8 @@ class LoginController extends GetxController {
       await SHDFClass.saveIntValue(KeyConstants.userId, response.payload.userId);
       await SHDFClass.saveStringValue(KeyConstants.email, response.payload.email);
       await SHDFClass.saveStringValue(KeyConstants.phone, response.payload.mobile);
-      Get.offAll(() => ProfilePage());
+      await SHDFClass.saveStringValue(KeyConstants.accesToken, response.payload.apiToken.access);
+       Get.offAll(() => GetStartedScreen());
       Fluttertoast.showToast(msg: response.msg);
     } else {
       DisplaySnackbar().errorSnackBar(title: "Failed", msg: response?.msg ?? "Signup failed. Please try again.");
@@ -300,6 +309,65 @@ class LoginController extends GetxController {
         );
       }
     }
+
+
+  Future<void> getStartedBrokerConnectNow() async {
+
+    int? userId = await SHDFClass.readIntValue(KeyConstants.userId, 0);
+    String? accessToken =
+    await SHDFClass.readStringValue(KeyConstants.accesToken,"");
+
+    if (userId == null || userId == 0) {
+      DisplaySnackbar().errorSnackBar(
+        title: "Error",
+        msg: "User ID not found.",
+      );
+      return;
+    }
+
+    GetStartedBrokerRequest getStartedBrokerRequest = GetStartedBrokerRequest(
+      userId: userId.toString(),
+      brokerName: "ANGLEONE",
+      clientId: "A53471568",
+      pin: "4747",
+      totp: "X3GQVYF2SO7LQY5ESGD5XYEWZQ",
+    );
+
+    final response = await Repository.hitPostSaveBrokerApi(getStartedBrokerRequest);
+
+    if (response != null && response.status == 200) {
+      DisplaySnackbar().successSnackBar(
+        title: "Success",
+        msg: response.msg,
+      );
+      Get.offAll(() => PortfolioListingPage());
+    } else {
+      DisplaySnackbar().errorSnackBar(
+        title: "Failed",
+        msg: response?.msg ?? "An error occurred",
+      );
+    }
+  }
+
+ Future<void> getPortfolioProfileViewData() async {
+
+    int? userId = await SHDFClass.readIntValue(KeyConstants.userId, 0);
+
+    GetProfileRequest getProfileRequest = GetProfileRequest(
+      userId: userId.toString(),
+    );
+
+    final response = await Repository.hitPostGetProfileApi(getProfileRequest);
+
+    // if (response != null && response.status == 200) {
+    //
+    // } else {
+    //   DisplaySnackbar().errorSnackBar(
+    //     title: "Failed",
+    //     msg: response?.msg ?? "An error occurred",
+    //   );
+    // }
+  }
 
   @override
   void onClose() {

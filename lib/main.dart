@@ -26,6 +26,10 @@ class MyApp extends StatelessWidget {
       title: 'Rate My Portfolio',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        cardTheme: CardTheme(
+          color: Colors.white,
+          surfaceTintColor: Colors.white
+        ),
         primaryColor: MyColor.primaryColor,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white, brightness: Brightness.dark),
         appBarTheme: AppBarTheme(

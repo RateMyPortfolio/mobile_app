@@ -9,6 +9,7 @@ import 'package:rate_my_portfolio/utils/local_database/shdf.dart';
 
 import '../../resources/my_assets.dart';
 import '../../utils/local_database/key_constants.dart';
+import 'GetStarted_Screen.dart';
 import 'SignIn_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -39,7 +40,8 @@ class _SplashScreenState extends State<SplashScreen> {
   handleSession(BuildContext context) async {
     int? userId = await SHDFClass.readIntValue(KeyConstants.userId,0);
     if(userId != null) {
-        Get.offAll(()=> ProfilePage());
+        // Get.offAll(()=> ProfilePage());
+        Get.offAll(()=> GetStartedScreen());
     } else {
       Get.offAll(()=> SignInScreen());
     }

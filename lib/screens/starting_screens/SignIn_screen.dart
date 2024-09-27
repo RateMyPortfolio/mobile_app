@@ -127,7 +127,7 @@ class SignInScreen extends StatelessWidget {
                     DisplaySnackbar().errorSnackBar(title: "Failed", msg: "Password must be at least 6 characters long");
                   } else {
                     getXController.signInUser();
-                    getXController.clearFields();
+                    // getXController.clearFields();
                   }
                 },
                 btnName: 'Sign In',

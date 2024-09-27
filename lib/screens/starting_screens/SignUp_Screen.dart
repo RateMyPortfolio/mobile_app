@@ -10,6 +10,7 @@ import '../../utils/widgets/TextFeild.dart';
 import '../../utils/widgets/TextFormFeild.dart';
 import '../../utils/widgets/my_button.dart';
 import '../../utils/widgets/snackbar.dart';
+import 'SignIn_screen.dart';
 
 
 class SignUpPage extends StatelessWidget {
@@ -122,7 +123,8 @@ class SignUpPage extends StatelessWidget {
                   text: "Already have Account? ",
                   clickableText: "Sign In here",
                   onTap: (){
-                    Get.back();
+                    // Get.back();
+                    Get.to(()=>SignInScreen());
                   },
                 ),
               ),

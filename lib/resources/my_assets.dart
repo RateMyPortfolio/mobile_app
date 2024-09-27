@@ -5,7 +5,7 @@ import 'package:shimmer/shimmer.dart';
 
 var appLogo = const AssetImage('assets/images/play.png');
 var appDLogo = const AssetImage('assets/images/d_logo.png');
-var appSplashLogo = const AssetImage('assets/images/splashlogo.png');
+var appSplashLogo = const AssetImage('assets/images/splashnewlogo.png');
 var appEmailLogo = const AssetImage('assets/icons/emailaddressicon.png');
 var appGoogleLogo = const AssetImage('assets/images/googlelogo.png');
 var appFacebookLogo = const AssetImage('assets/images/facebook.png');
@@ -13,6 +13,10 @@ var appBackArrowLogo = const AssetImage('assets/images/backarrow.png');
 var appRightMarkArrow = const AssetImage('assets/images/rightmarkarrow.png');
 var errorIcon = const AssetImage('assets/images/error.png');
 var noInternetIcon = const AssetImage('assets/images/no_internet.png');
+var portfolioprofileLogo = const AssetImage('assets/images/rabbit.png');
+var portfolioCrownLogo = const AssetImage('assets/images/crowns.png');
+var portfolioSliderLogo = const AssetImage('assets/images/Sliders.png');
+var PreminumIndicatorLogo = const AssetImage('assets/images/Christmas stars.png');
 
 
 // var appLogo = const AssetImage('assets/images/play.png');

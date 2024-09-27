@@ -75,11 +75,14 @@ flutter:
   assets:
     - assets/
     - assets/images/
-    - assets/images/splashlogo.png
+    - assets/images/splashnewlogo.png
     - assets/images/googlelogo.png
     - assets/images/facebook.png
     - assets/images/backarrow.png
+    - assets/images/crowns.png
+    - assets/images/Sliders.png
     - assets/images/rightmarkarrow.png
+    - assets/images/Christmas stars.png
     - assets/images/error_ic.png
     - assets/images/error.png
     - assets/images/no_internet.png

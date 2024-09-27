@@ -9,5 +9,7 @@ class ApiConstant {
   static String postSignUpApi = "${baseUrl}signup/";
   static String postSendOTPApi = "${baseUrl}send_otp/";
   static String postConformPasswordApi = "${baseUrl}confirm_password/";
+  static String postSaveBrokerApi = "${baseUrl}save_broker/";
+  static String postGetProfileApi = "${baseUrl}get_profile/";
 
 }

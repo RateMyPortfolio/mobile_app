@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:rate_my_portfolio/resources/my_assets.dart';
 import '../utils/dialog/circular_progress_dialog.dart';
 import '../utils/dialog/ok_dialog.dart';
+import '../utils/local_database/key_constants.dart';
+import '../utils/local_database/shdf.dart';
 import '../utils/my_internet_connection.dart';
 
 import 'package:http/http.dart' as http;
@@ -12,22 +14,25 @@ import 'package:http/http.dart' as http;
 class ApiClient {
   CircularProgressDialog progressDialog = CircularProgressDialog();
 
-  Future<Map<String, dynamic>?> requestPost({required String url, required String parameters, context}) async {
+  Future<Map<String, dynamic>?> requestPost({required String url, required String parameters,context }) async {
     progressDialog.showProgressDialog();
 
     log("API : $url");
     log("RequestData : ${parameters.toString()}");
-    // log("accessToken : $accessToken");
     bool flagNet = await MyInternetConnection().isInternetAvailable();
 
     if (flagNet) {
+      String? accessToken =
+      await SHDFClass.readStringValue(KeyConstants.accesToken,"");
+      log("accessToken : $accessToken");
       try {
         Uri uri = Uri.parse(url);
-
         final results = await http.post(
           uri,
           body: parameters,
-          headers: {"Content-Type": "application/json"},
+          headers: {"Content-Type": "application/json",
+            "Authorization": "Bearer $accessToken",
+            "Access-Control-Allow-Origin": "*"},
         );
         //print(results);
 

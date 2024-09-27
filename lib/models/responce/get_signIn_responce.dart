@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final signInResponce = signInResponceFromJson(jsonString);
-
 import 'dart:convert';
 
 SignInResponce signInResponceFromJson(String str) => SignInResponce.fromJson(json.decode(str));

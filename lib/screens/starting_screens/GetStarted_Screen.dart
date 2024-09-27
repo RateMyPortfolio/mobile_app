@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rate_my_portfolio/resources/my_colors.dart';
 import '../../controllers/login_controller.dart';
+import '../../utils/widgets/coustumTextFeild_btnDesign.dart';
 import '../../utils/widgets/my_button.dart';
+import '../Home_Screens/portfolio_Listing.dart';
 
 class GetStartedScreen extends StatelessWidget {
   @override
@@ -34,23 +36,16 @@ class GetStartedScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            myButton(
+            rectAngleDesignTextField(
               context: context,
-              onTap: () {},
-              btnName: 'Zoodha',
-              colorType: 4,
-            ),
-            const SizedBox(height: 20),
-            myButton(
-              context: context,
-              onTap: () {},
-              btnName: 'Grrow',
+              controller:getXController.GetStartedAngleTextController ,
+              hintText: 'ANGLEONE',
               colorType: 4,
             ),
             const SizedBox(height: 30),
             myButton(
               context: context,
-              onTap: getXController.ConnectNow,
+              onTap: getXController.getStartedBrokerConnectNow,
               btnName: 'Connect Now',
             ),
             const SizedBox(height: 18),
@@ -69,7 +64,7 @@ class GetStartedScreen extends StatelessWidget {
                 const SizedBox(width: 5),
                 GestureDetector(
                   onTap: () {
-                    // Handle skip action
+                    Get.offAll(() => PortfolioListingPage());
                   },
                   child: const Text(
                     'Skip?',
