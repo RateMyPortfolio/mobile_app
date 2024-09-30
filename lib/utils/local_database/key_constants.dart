@@ -4,7 +4,6 @@ class KeyConstants {
   static String email = 'email';
   static String phone = 'phone';
 
-  static String broker = 'broker';
   static String clientId = 'clientId';
   static String pin = 'pin';
   static String totp = 'totp';

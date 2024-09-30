@@ -130,7 +130,6 @@ class LoginController extends GetxController {
           await SHDFClass.saveStringValue(KeyConstants.email, responseModel.payload.email!);
           await SHDFClass.saveStringValue(KeyConstants.phone, responseModel.payload.mobile!);
 
-          await SHDFClass.saveStringValue(KeyConstants.broker, responseModel.payload.selectedBroker!);
           await SHDFClass.saveStringValue(KeyConstants.clientId, responseModel.payload.clientId!);
           await SHDFClass.saveStringValue(KeyConstants.pin, responseModel.payload.pin!);
           await SHDFClass.saveStringValue(KeyConstants.totp, responseModel.payload.totp!);
@@ -326,13 +325,7 @@ class LoginController extends GetxController {
   }
 
   Future<void> getStartedBrokerConnectNow() async {
-    if (brokerNameCtr.text.isEmpty) {
-      DisplaySnackbar().errorSnackBar(
-        title: "Failed",
-        msg: "Please enter broker name",
-      );
-      return;
-    } else if (clientIdCtr.text.isEmpty) {
+    if (clientIdCtr.text.isEmpty) {
       DisplaySnackbar().errorSnackBar(
         title: "Failed",
         msg: "Please enter client ID",
@@ -355,7 +348,7 @@ class LoginController extends GetxController {
 
       GetStartedBrokerRequest getStartedBrokerRequest = GetStartedBrokerRequest(
         userId: userId.toString(),
-        brokerName: brokerNameCtr.text,
+        brokerName: "ANGLEONE",
         clientId: clientIdCtr.text,
         pin: pinCtr.text,
         totp: totpCtr.text,
@@ -368,6 +361,9 @@ class LoginController extends GetxController {
           title: "Success",
           msg: response.msg,
         );
+        await SHDFClass.saveStringValue(KeyConstants.clientId, clientIdCtr.text);
+        await SHDFClass.saveStringValue(KeyConstants.pin, pinCtr.text);
+        await SHDFClass.saveStringValue(KeyConstants.totp, totpCtr.text);
         Get.offAll(() => PortfolioListingPage());
       } else {
         DisplaySnackbar().errorSnackBar(

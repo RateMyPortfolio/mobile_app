@@ -30,7 +30,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   }
 
   setData() async {
-   getXController.brokerNameCtr.text = await SHDFClass.readStringValue(KeyConstants.broker,"") ?? "";
    getXController.clientIdCtr.text = await SHDFClass.readStringValue(KeyConstants.clientId,"") ?? "";
    getXController.pinCtr.text = await SHDFClass.readStringValue(KeyConstants.pin,"") ?? "";
    getXController.totpCtr.text = await SHDFClass.readStringValue(KeyConstants.totp,"") ?? "";
@@ -95,16 +94,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                 colorType: 4,
               ),
               const SizedBox(height: 20),
-              LabeledTextField(label:"Broker Name"),
-              TextFromField(
-                controller:getXController.brokerNameCtr,
-                hintText: "Broker Name",
-                hintTextColor:MyColor.HintColor,
-                // prefix: appEmailLogo,
-                obscureText: false,
-                borderColor: MyColor.TextFormBorderGreyColor,
-              ),
-              const SizedBox(height: 10),
               LabeledTextField(label:"Client ID"),
               TextFromField(
                 controller:getXController.clientIdCtr,
