@@ -49,7 +49,6 @@ class SHDFClass {
 
   static saveIntValue(String name, int value) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-
     await preferences.setInt(name, value);
   }
 

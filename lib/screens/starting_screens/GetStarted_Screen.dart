@@ -9,9 +9,12 @@ import '../../utils/widgets/TextFeild.dart';
 import '../../utils/widgets/TextFormFeild.dart';
 import '../../utils/widgets/coustumTextFeild_btnDesign.dart';
 import '../../utils/widgets/my_button.dart';
-import '../Home_Screens/portfolio_Listing.dart';
+import '../Home_Screens/Listing_page.dart';
 
 class GetStartedScreen extends StatefulWidget {
+  String from;
+  GetStartedScreen(this.from);
+
   @override
   State<GetStartedScreen> createState() => _GetStartedScreenState();
 }
@@ -56,7 +59,12 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
         actions: [
           GestureDetector(
             onTap: () {
-              Get.offAll(() => PortfolioListingPage());
+              if(widget.from=="profile"){
+                Get.back();
+              }else{
+                Get.offAll(() => PortfolioListingPage());
+              }
+
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5),
@@ -103,31 +111,31 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                 obscureText: false,
                 borderColor: MyColor.TextFormBorderGreyColor,
               ),
-              const SizedBox(height: 10),
-              LabeledTextField(label:"PIN"),
-              TextFromField(
-                controller:getXController.pinCtr,
-                keyboardType: TextInputType.number,
-                hintText: "****",
-                hintTextColor:MyColor.HintColor,
-                // prefix: appEmailLogo,
-                obscureText: false,
-                borderColor: MyColor.TextFormBorderGreyColor,
-              ),
-              const SizedBox(height: 10),
-              LabeledTextField(label:"TOTP"),
-              TextFromField(
-                controller:getXController.totpCtr,
-                hintText: "TOTP",
-                hintTextColor:MyColor.HintColor,
-                // prefix: appEmailLogo,
-                obscureText: false,
-                borderColor: MyColor.TextFormBorderGreyColor,
-              ),
+              // const SizedBox(height: 10),
+              // LabeledTextField(label:"PIN"),
+              // TextFromField(
+              //   controller:getXController.pinCtr,
+              //   keyboardType: TextInputType.number,
+              //   hintText: "****",
+              //   hintTextColor:MyColor.HintColor,
+              //   // prefix: appEmailLogo,
+              //   obscureText: false,
+              //   borderColor: MyColor.TextFormBorderGreyColor,
+              // ),
+              // const SizedBox(height: 10),
+              // LabeledTextField(label:"TOTP"),
+              // TextFromField(
+              //   controller:getXController.totpCtr,
+              //   hintText: "TOTP",
+              //   hintTextColor:MyColor.HintColor,
+              //   // prefix: appEmailLogo,
+              //   obscureText: false,
+              //   borderColor: MyColor.TextFormBorderGreyColor,
+              // ),
               const SizedBox(height: 30),
               myButton(
                 context: context,
-                onTap: getXController.getStartedBrokerConnectNow,
+                onTap: (){ getXController.getStartedBrokerConnectNow(widget.from);},
                 btnName: 'Connect Now',
               ),
               const SizedBox(height: 18),

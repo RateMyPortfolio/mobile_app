@@ -12,10 +12,21 @@ var appFacebookLogo = const AssetImage('assets/images/facebook.png');
 var appBackArrowLogo = const AssetImage('assets/images/backarrow.png');
 var appRightMarkArrow = const AssetImage('assets/images/rightmarkarrow.png');
 var errorIcon = const AssetImage('assets/images/error.png');
+var dotIcon = const AssetImage('assets/images/dot.png');
 var noInternetIcon = const AssetImage('assets/images/no_internet.png');
+var yellowSelectprice = const AssetImage('assets/images/yellowselectprice.png');
+var blueSelectprice = const AssetImage('assets/images/blueselectprice.png');
+var reviewSendIcon = const AssetImage('assets/images/send.png');
 var portfolioprofileLogo = const AssetImage('assets/images/rabbit.png');
+var rateMyPortfolioAppLogo = const AssetImage('assets/images/ratemyportfolio_icon.png');
+var portfolioHomeIconLogo = const AssetImage('assets/images/Outline.png');
+var CommunityReviewProfile = const AssetImage('assets/images/communityprofile.png');
+var CommunityReviewEyes = const AssetImage('assets/images/eyesreview.png');
+var CommunityReviewComment = const AssetImage('assets/images/Commentreview.png');
+var CommunityReviewShare = const AssetImage('assets/images/Replyreview.png');
 var portfolioCrownLogo = const AssetImage('assets/images/crowns.png');
 var portfolioSliderLogo = const AssetImage('assets/images/Sliders.png');
+var portfolioMoreLogo = const AssetImage('assets/images/more.png');
 var PreminumIndicatorLogo = const AssetImage('assets/images/Christmas stars.png');
 
 

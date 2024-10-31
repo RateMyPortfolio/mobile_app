@@ -16,10 +16,10 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 1.0.3+3
 
 environment:
-  sdk: '>=3.2.3 <4.0.0'
+  sdk: '>=3.2.0 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -46,7 +46,9 @@ dependencies:
   shimmer: ^3.0.0
   fluttertoast: ^8.2.2
   pin_code_fields: ^8.0.1
-
+  firebase_auth: ^4.17.8
+  google_sign_in: ^6.2.1
+  webview_flutter: ^2.0.10
 
 
 
@@ -76,7 +78,18 @@ flutter:
     - assets/
     - assets/images/
     - assets/images/splashnewlogo.png
+    - assets/images/Outline.png
+    - assets/images/ratemyportfolio_icon.png
     - assets/images/googlelogo.png
+    - assets/images/dot.png
+    - assets/images/send.png
+    - assets/images/eyesreview.png
+    - assets/images/yellowselectprice.png
+    - assets/images/blueselectprice.png
+    - assets/images/Commentreview.png
+    - assets/images/Replyreview.png
+    - assets/images/more.png
+    - assets/images/communityprofile.png
     - assets/images/facebook.png
     - assets/images/backarrow.png
     - assets/images/crowns.png

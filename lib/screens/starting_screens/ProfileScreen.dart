@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rate_my_portfolio/screens/starting_screens/SignUp_Screen.dart';
 
-import '../Home_Screens/portfolio_Listing.dart';
+import '../Home_Screens/Listing_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "809147469118",
+    "project_id": "reviewmyportfolio-fcb3f",
+    "storage_bucket": "reviewmyportfolio-fcb3f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809147469118:android:1a14128b774d0b5823b06f",
+        "android_client_info": {
+          "package_name": "com.app.rate_my_portfolio"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpVwfjq1YGIrflp7MEJAvvjKtPdXS_QVo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,16 +1,31 @@
 import 'dart:convert';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import '../models/request/Aboutmyportfoliorequest.dart';
+import '../models/request/LoginSignupGoogleFaceBook_Request.dart';
+import '../models/request/deleteAccountRequest.dart';
+import '../models/request/portfolio_detailPage_request.dart';
+import '../models/request/portfolio_likeDeslikeComment_request.dart';
+import '../models/request/portfolio_listingCommunityReview_request.dart';
+import '../models/request/post_PortfolioListing_request.dart';
 import '../models/request/post_SignUp_request.dart';
 import '../models/request/post_conformpassword_request.dart';
 import '../models/request/post_getprofile_request.dart';
-import '../models/request/post_getstartedBroker_request.dart';
 import '../models/request/post_signIn_request.dart';
 import '../models/request/send_OTP_request.dart';
-import '../models/responce/getStartedBroker_responce.dart';
+import '../models/responce/Aboutmyportfolioresponce.dart';
+import '../models/responce/LoginSignupGoogleFaceBook_Responce.dart';
+import '../models/responce/connect_now_response.dart';
+import '../models/responce/deleteAccountResponce.dart';
 import '../models/responce/get_SignUp_responce.dart';
 import '../models/responce/get_signIn_responce.dart';
+import '../models/responce/portfolio_detailPage_responce.dart';
+import '../models/responce/portfolio_likeDeslikeComment_responce.dart';
+import '../models/responce/portfolio_listingCommunityReview_responce.dart';
+import '../models/responce/post_FilterData_responce.dart';
 import '../models/responce/post_GetProfile_responce.dart';
+import '../models/responce/post_PortfolioListing_responce.dart';
 import '../models/responce/post_conformpassword_responce.dart';
 import '../models/responce/send_OTP_responce.dart';
 import '../utils/dialog/ErrorDialog.dart';
@@ -19,11 +34,12 @@ import 'api_constant.dart';
 
 class Repository {
 
-  static Future<SignInResponce?> hitSignInApi(SignInRequest request) async {
+  static Future<SignInResponce?> hitSignInApi(SignInRequest request, BuildContext context) async {
     SignInResponce? responseModel;
     final results = await ApiClient().requestPost(
       url: ApiConstant.postSignInApi,
       parameters: json.encode(request.toJson()),
+      context: context
     );
     if (results!['status'] == 200) {
       print("results results :--- ${results['status']}");
@@ -40,6 +56,7 @@ class Repository {
     final results = await ApiClient().requestPost(
       url: ApiConstant.postSignUpApi,
       parameters: json.encode(request.toJson()),
+        context: Get.context
     );
     if (results!['status'] == 200) {
       print("results results :--- ${results['status']}");
@@ -50,11 +67,12 @@ class Repository {
     return responseModel;
   }
 
-  static Future<SendOtpResponce?> hitSendOTPApi(SendOtpRequest request) async {
+  static Future<SendOtpResponce?> hitSendOTPApi(SendOtpRequest request, BuildContext context) async {
     SendOtpResponce? responseModel;
     final results = await ApiClient().requestPost(
       url: ApiConstant.postSendOTPApi,
       parameters: json.encode(request.toJson()),
+        context: context
     );
     if (results!['status'] == 200) {
       print("results results :--- ${results['status']}");
@@ -66,11 +84,12 @@ class Repository {
     return responseModel;
   }
 
-  static Future<ConfromPassowrdResponce?> hitConformPasswordApi(ConfromPassowrdRequest request) async {
+  static Future<ConfromPassowrdResponce?> hitConformPasswordApi(ConfromPassowrdRequest request, BuildContext context) async {
     ConfromPassowrdResponce? responseModel;
     final results = await ApiClient().requestPost(
       url: ApiConstant.postConformPasswordApi,
       parameters: json.encode(request.toJson()),
+        context: context
     );
     if (results!['status'] == 200) {
       print("results results :--- ${results['status']}");
@@ -82,16 +101,17 @@ class Repository {
     return responseModel;
   }
 
-  static Future<GetStartedBrokerresponce?> hitPostSaveBrokerApi(GetStartedBrokerRequest request) async {
-    GetStartedBrokerresponce? responseModel;
+  static Future<connectNowResponse?> connectNow(Map<String, Object?> request, BuildContext context) async {
+    connectNowResponse? responseModel;
 
     final results = await ApiClient().requestPost(
-      url: ApiConstant.postSaveBrokerApi,
-      parameters: json.encode(request.toJson()),
+      url: ApiConstant.connectNowApi,
+      parameters: json.encode(request),
+        context: context
     );
     if (results!['status'] == 200) {
       print("results results :--- ${results['status']}");
-      responseModel = GetStartedBrokerresponce.fromJson(results);
+      responseModel = connectNowResponse.fromJson(results);
     } else if (results['status'] == 403) {
       Get.dialog(ErrorDialog(msg: "${results['msg']}"));
 
@@ -99,12 +119,31 @@ class Repository {
     return responseModel;
   }
 
-  static Future<GetProfileResponse?> hitPostGetProfileApi(GetProfileRequest request) async {
+  // static Future<GetStartedBrokerresponce?> hitPostSaveBrokerApi(GetStartedBrokerRequest request, BuildContext context) async {
+  //   GetStartedBrokerresponce? responseModel;
+  //
+  //   final results = await ApiClient().requestPost(
+  //     url: ApiConstant.postSaveBrokerApi,
+  //     parameters: json.encode(request.toJson()),
+  //       context: context
+  //   );
+  //   if (results!['status'] == 200) {
+  //     print("results results :--- ${results['status']}");
+  //     responseModel = GetStartedBrokerresponce.fromJson(results);
+  //   } else if (results['status'] == 403) {
+  //     Get.dialog(ErrorDialog(msg: "${results['msg']}"));
+  //
+  //   }
+  //   return responseModel;
+  // }
+
+  static Future<GetProfileResponse?> hitPostGetProfileApi(GetProfileRequest request, BuildContext context) async {
     GetProfileResponse? responseModel;
 
     final results = await ApiClient().requestPost(
       url: ApiConstant.postGetProfileApi,
       parameters: json.encode(request.toJson()),
+        context: context
     );
     if (results != null) {
       print("results results :--- ${results['status']}");
@@ -112,6 +151,137 @@ class Repository {
     }
     return responseModel;
   }
+
+  static Future<deleteAccountResponce?> deleteAccount(deleteAccountRequest request, BuildContext context) async {
+    deleteAccountResponce? responseModel;
+
+    final results = await ApiClient().requestPost(
+      url: ApiConstant.deleteAccountApi,
+      parameters: json.encode(request.toJson()),
+        context: context
+    );
+    if (results != null) {
+      print("results results :--- ${results['status']}");
+      responseModel = deleteAccountResponce.fromJson(results);
+    }
+    return responseModel;
+  }
+
+  static Future<Aboutmyportfolioresponce?> updateAboutMyPortfolio(Aboutmyportfoliorequest request, BuildContext context) async {
+    Aboutmyportfolioresponce? responseModel;
+
+    final results = await ApiClient().requestPost(
+      url: ApiConstant.UpdateAboutmyPortfolio,
+      parameters: json.encode(request.toJson()),
+        context: context
+    );
+    if (results != null) {
+      print("results results :--- ${results['status']}");
+      responseModel = Aboutmyportfolioresponce.fromJson(results);
+    }
+    return responseModel;
+  }
+
+  static Future<PortfolioListingResponce?> hitPortfolioListingApi(PortfolioListingRequest request, BuildContext context) async {
+    PortfolioListingResponce? responseModel;
+
+    final results = await ApiClient().requestPost(
+      url: ApiConstant.postPortfolioListingApi,
+      parameters: json.encode(request.toJson()),
+        context: context
+    );
+    if (results != null) {
+      print("results results :--- ${results['status']}");
+      responseModel = PortfolioListingResponce.fromJson(results);
+    }
+    return responseModel;
+  }
+
+ static Future<PortfolioDetailpageResponce?> hitPortfolioDetailsApi(PortfolioDetailpageRequest request, BuildContext context) async {
+   PortfolioDetailpageResponce? responseModel;
+
+    final results = await ApiClient().requestPost(
+      url: ApiConstant.postPortFolioDetailsApi,
+      parameters: json.encode(request.toJson()),
+      context: context
+    );
+    if (results != null) {
+      print("results results :--- ${results['status']}");
+      responseModel = PortfolioDetailpageResponce.fromJson(results);
+    }
+    return responseModel;
+  }
+
+  static Future<portfolioCommunityReviewResponce?> hitPortfolioListingCommunityReviewApi(portfolioCommunityReviewRequest request,bool isReply, BuildContext context) async {
+    portfolioCommunityReviewResponce? responseModel;
+
+    var results = null;
+    if(isReply) {
+      results = await ApiClient().requestNoloaderPost(
+          url: ApiConstant.listingDeatilApi,
+          parameters: json.encode(request.toJson()),
+          context: context
+      );
+    } else {
+      results = await ApiClient().requestPost(
+          url: ApiConstant.listingDeatilApi,
+          parameters: json.encode(request.toJson()),
+          context: context
+      );
+    }
+    if (results != null) {
+      print("results results :--- ${results['status']}");
+      responseModel = portfolioCommunityReviewResponce.fromJson(results);
+    }
+    return responseModel;
+  }
+
+static Future<LikeDeslikeComment_responce?> hitListingLikeDislikeCommentApi(LikeDeslikeComment_request request, BuildContext context) async {
+  LikeDeslikeComment_responce? responseModel;
+
+    final results = await ApiClient().requestNoloaderPost(
+      url: ApiConstant.listingLikeDislikeCommentApi,
+      parameters: json.encode(request.toJson()),
+    );
+    if (results != null) {
+      print("results results :--- ${results['status']}");
+      responseModel = LikeDeslikeComment_responce.fromJson(results);
+    }
+    return responseModel;
+  }
+
+static Future<LoginSignupGoogleFaceBook_Responce?> HitLoginSignupGoogleFaceBookApi(LoginSignupGoogleFaceBook_Request request, BuildContext context) async {
+  LoginSignupGoogleFaceBook_Responce? responseModel;
+
+    final results = await ApiClient().requestPost(
+      url: ApiConstant.LoginSignupGoogleFaceBookApi,
+      parameters: json.encode(request.toJson()),
+        context: context ,
+    );
+    if (results != null) {
+      print("results results :--- ${results['status']}");
+      responseModel = LoginSignupGoogleFaceBook_Responce.fromJson(results);
+    }
+    return responseModel;
+  }
+
+
+static Future<FilterDataResponce?> hitFilterDataApi() async {
+  FilterDataResponce? responseModel;
+
+  final results = await ApiClient().requestPost(
+    url: ApiConstant.postFilterDataApi,
+    parameters: "",
+      context: Get.context
+  );
+  if (results != null) {
+    print("results results :--- ${results['status']}");
+    responseModel = FilterDataResponce.fromJson(results);
+  }
+  return responseModel;
+}
+
+
 
   // static Future<List<SessionModel>> hitSessionApi() async {
   //   print("hitSessionApi RUnning ...");

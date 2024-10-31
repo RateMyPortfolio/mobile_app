@@ -30,12 +30,11 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(Duration(seconds: 4), () => handleSession(context));
   }
 
-
   handleSession(BuildContext context) async {
     int? userId = await SHDFClass.readIntValue(KeyConstants.userId,0);
     if(userId != null) {
         // Get.offAll(()=> ProfilePage());
-        Get.offAll(()=> GetStartedScreen());
+        Get.offAll(()=> GetStartedScreen(""));
     } else {
       Get.offAll(()=> SignInScreen());
     }
@@ -55,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
               SizedBox(
                 width: Get.width,
                 child: Center(
-                  child: Image(image: appSplashLogo),
+                  child: Image(image: rateMyPortfolioAppLogo),
                 ),
               ),
               Text(
@@ -64,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   fontSize: 32,
                   height: 1,
                   fontWeight: FontWeight.bold,
-                  color: MyColor.FaceBookDarkColor,
+                  color: Colors.green,
                 ),
               ),
               SizedBox(height: Get.height * 0.05,)

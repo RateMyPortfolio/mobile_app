@@ -13,6 +13,7 @@ class TextFromField extends StatelessWidget {
   final VoidCallback? onPressed;
   final String? Function(String?)? validator;
   final TextInputType keyboardType;
+  final bool readOnly;
 
   const TextFromField({
     Key? key,
@@ -26,6 +27,7 @@ class TextFromField extends StatelessWidget {
     this.onPressed,
     this.validator,
     this.keyboardType = TextInputType.text,
+    this.readOnly = false,
   }) : super(key: key);
 
   @override
@@ -38,26 +40,28 @@ class TextFromField extends StatelessWidget {
           controller: controller,
           obscureText: obscureText,
           keyboardType: keyboardType,
+          readOnly: readOnly,
           inputFormatters: keyboardType == TextInputType.phone
               ? <TextInputFormatter>[
             FilteringTextInputFormatter.digitsOnly,
             LengthLimitingTextInputFormatter(13)
           ]
               : null,
-          style: TextStyle(color: MyColor.darkGreyColor),
+          style: TextStyle(color: readOnly ? MyColor.matricsgreyColor : MyColor.black),
           validator: validator,
           decoration: InputDecoration(
             hintText: hintText,
-            fillColor: MyColor.black,
-            hintStyle: TextStyle(color:MyColor.HintColor),
+            hintStyle: TextStyle(color: hintTextColor),
             prefixIcon: _buildPrefixIcon(),
-            suffixIcon: suffixIcon != null ? IconButton(
+            suffixIcon: suffixIcon != null
+                ? IconButton(
               icon: suffixIcon!,
               onPressed: onPressed,
-            ) : null,
+            )
+                : null,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color:borderColor),
+              borderSide: BorderSide(color: borderColor),
             ),
             contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
           ),

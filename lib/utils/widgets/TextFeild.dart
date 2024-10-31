@@ -6,7 +6,8 @@ class LabeledTextField extends StatelessWidget {
   final String label;
   final IconData? prefixIcon;
   final bool obscureText;
-  final VoidCallback? onTap;  // Add onTap callback
+  final VoidCallback? onTap;
+  final Color labelColor;
 
   const LabeledTextField({
     Key? key,
@@ -14,6 +15,7 @@ class LabeledTextField extends StatelessWidget {
     this.prefixIcon,
     this.obscureText = false,
     this.onTap,
+    this.labelColor = MyColor.matricsgreyColor,
   }) : super(key: key);
 
   @override

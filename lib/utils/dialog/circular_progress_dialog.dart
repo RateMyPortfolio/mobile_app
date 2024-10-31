@@ -9,19 +9,20 @@ class CircularProgressDialog {
 
   showProgressDialog({
     bool barrierDismissible = false,
+    required BuildContext context,
   }) {
     _dialogIsOpen = true;
     return showDialog(
         barrierDismissible: barrierDismissible,
-        context: Get.context!,
+        context: context,
         builder: (context) {
           return ProgressDialogWidget();
         });
   }
 
-  void close() {
+  void close(BuildContext context) {
     if (_dialogIsOpen) {
-      Get.back();
+      Navigator.pop(context);
       _dialogIsOpen = false;
     }
   }

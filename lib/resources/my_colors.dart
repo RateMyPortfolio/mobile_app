@@ -13,6 +13,9 @@ class MyColor {
   static const Color whiteDarkGreyColor = Color(0xFF999A9D);
   static const Color TextFormBorderGreyColor = Color(0xF5D3DEED);
   static const Color darkGreyColor = Color(0xFF464E5F);
+  static const Color matricsgreyColor = Color(0xFF737C90);
+  static const Color selectPlanColor = Color(0xFF13343B);
+  static const Color PricefreeYelloowColor = Color(0xFFF7AC16);
   static const Color previewIndicatorColor = Color(0xFFAAA1A1);
   static const Color PortfolioPercentagecolor = Color(0xFF1FBC40);
 

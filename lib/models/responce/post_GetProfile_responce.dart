@@ -28,14 +28,31 @@ class Payload {
   bool? status;
   String? message;
   String? errorcode;
+  List<String>? performaceMatrix;
+  String? description;
+  String? performaceMetrics1;
+  String? performaceMetrics2;
+  String? performaceMetrics3;
+  String? performaceMetrics4;
 
-  Payload({this.data, this.status, this.message, this.errorcode});
+  Payload({this.data, this.status, this.message, this.errorcode,this.performaceMatrix,
+    this.description,
+    this.performaceMetrics1,
+    this.performaceMetrics2,
+    this.performaceMetrics3,
+    this.performaceMetrics4});
 
   Payload.fromJson(Map<String, dynamic> json) {
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     status = json['status'];
     message = json['message'];
     errorcode = json['errorcode'];
+    performaceMatrix = json['performace_matrix'].cast<String>();
+    description = json['description'];
+    performaceMetrics1 = json['performace_metrics_1'];
+    performaceMetrics2 = json['performace_metrics_2'];
+    performaceMetrics3 = json['performace_metrics_3'];
+    performaceMetrics4 = json['performace_metrics_4'];
   }
 
   Map<String, dynamic> toJson() {
@@ -46,6 +63,13 @@ class Payload {
     data['status'] = this.status;
     data['message'] = this.message;
     data['errorcode'] = this.errorcode;
+
+    data['performace_matrix'] = this.performaceMatrix;
+    data['description'] = this.description;
+    data['performace_metrics_1'] = this.performaceMetrics1;
+    data['performace_metrics_2'] = this.performaceMetrics2;
+    data['performace_metrics_3'] = this.performaceMetrics3;
+    data['performace_metrics_4'] = this.performaceMetrics4;
     return data;
   }
 }
