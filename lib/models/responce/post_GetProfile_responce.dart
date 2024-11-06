@@ -30,6 +30,7 @@ class Payload {
   String? errorcode;
   List<String>? performaceMatrix;
   String? description;
+  String? profileImg;
   String? performaceMetrics1;
   String? performaceMetrics2;
   String? performaceMetrics3;
@@ -37,6 +38,7 @@ class Payload {
 
   Payload({this.data, this.status, this.message, this.errorcode,this.performaceMatrix,
     this.description,
+    this.profileImg,
     this.performaceMetrics1,
     this.performaceMetrics2,
     this.performaceMetrics3,
@@ -49,6 +51,7 @@ class Payload {
     errorcode = json['errorcode'];
     performaceMatrix = json['performace_matrix'].cast<String>();
     description = json['description'];
+    profileImg = json['profile_img'];
     performaceMetrics1 = json['performace_metrics_1'];
     performaceMetrics2 = json['performace_metrics_2'];
     performaceMetrics3 = json['performace_metrics_3'];
@@ -66,6 +69,7 @@ class Payload {
 
     data['performace_matrix'] = this.performaceMatrix;
     data['description'] = this.description;
+    data['profile_img'] = this.profileImg;
     data['performace_metrics_1'] = this.performaceMetrics1;
     data['performace_metrics_2'] = this.performaceMetrics2;
     data['performace_metrics_3'] = this.performaceMetrics3;

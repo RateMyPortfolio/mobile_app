@@ -29,6 +29,7 @@ class _PortfolioListingPageState extends State<PortfolioListingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MyColor.primaryLightColor,
       appBar: AppBar(
         leading: Container(
           margin: EdgeInsets.only(left: 10),

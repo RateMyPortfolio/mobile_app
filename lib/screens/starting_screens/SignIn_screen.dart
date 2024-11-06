@@ -81,23 +81,24 @@ class SignInScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Obx(() => Row(
-                        children: [
-                          Container(
-                            width: Get.width * 0.1,
-                            child: Checkbox(
-                              activeColor: MyColor.primaryDarkColor,
-                              checkColor: MyColor.white,
-                              value: getXController.agreedToTerms.value,
-                              onChanged: (_) => getXController.rememberMe(),
-                            ),
-                          ),
-                          const Text(
-                            'Remember me',
-                            style: TextStyle(color: MyColor.darkGreyColor, fontSize: 10),
-                          ),
-                        ],
-                      )),
+                  SizedBox(width: 50,),
+                  // Obx(() => Row(
+                  //       children: [
+                  //         Container(
+                  //           width: Get.width * 0.1,
+                  //           child: Checkbox(
+                  //             activeColor: MyColor.primaryDarkColor,
+                  //             checkColor: MyColor.white,
+                  //             value: getXController.agreedToTerms.value,
+                  //             onChanged: (_) => getXController.rememberMe(),
+                  //           ),
+                  //         ),
+                  //         const Text(
+                  //           'Remember me',
+                  //           style: TextStyle(color: MyColor.darkGreyColor, fontSize: 10),
+                  //         ),
+                  //       ],
+                  //     )),
                   GestureDetector(
                     onTap: () {
                       Get.to(() => ForgotPasswordScreen());

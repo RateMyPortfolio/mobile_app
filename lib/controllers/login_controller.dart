@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rate_my_portfolio/resources/my_colors.dart';
 import 'package:rate_my_portfolio/screens/Home_Screens/Listing_page.dart';
 import 'package:rate_my_portfolio/screens/StripeWebScreens/CustomWebView.dart';
@@ -547,14 +548,14 @@ class LoginController extends GetxController {
     MyprofilePhoneNoController.text = await SHDFClass.readStringValue(KeyConstants.phone, "") ?? "";
   }
 
-  Future<void> UpdateprofileAboutMyPortfolio()  async {
+  Future<void> UpdateprofileAboutMyPortfolio(XFile? profilePic)  async {
    int UserId = await SHDFClass.readIntValue(KeyConstants.userId, 0) ?? 0;
 
   Aboutmyportfoliorequest aboutmyportfoliorequest = Aboutmyportfoliorequest(
-     userId: UserId ,
+     userId: UserId,
     aboutPortfolio: aboutMyPortfolio.text.trim()
     );
-    final response = await Repository.updateAboutMyPortfolio(aboutmyportfoliorequest,Get.context!);
+    final response = await Repository.updateAboutMyPortfolio(aboutmyportfoliorequest,profilePic,Get.context!);
     if (response != null && response.status == 200) {
       print("data:-"+ aboutMyPortfolio.text.toString());
       DisplaySnackbar().successSnackBar(

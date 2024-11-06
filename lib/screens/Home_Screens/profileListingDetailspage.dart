@@ -46,6 +46,7 @@ class _State extends State<portfolioProfileDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MyColor.primaryLightColor,
       appBar: AppBar(
         leading: Back(),
         leadingWidth: Get.width * 0.1,

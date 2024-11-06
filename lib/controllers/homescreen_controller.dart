@@ -93,9 +93,10 @@ class HomeScreenController extends GetxController {
 
     if (response != null && response.status == 200) {
       if (response.payload != null) {
-        description = response.payload!.description ??'';
+        description = response.payload!.description ?? '';
         userUpdatedata = response.payload!;
-
+        await SHDFClass.saveStringValue(KeyConstants.profileImg, response.payload!.profileImg!);
+        profileImg = response.payload!.profileImg!;
         if (response.payload!.data != null) {
           totalHoldings = response.payload!.data!.totalholding;
           holdingsList = response.payload!.data!.holdings!;

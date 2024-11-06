@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     precacheImage(appSplashLogo, context);
     return GetMaterialApp(
-      title: 'Rate My Portfolio',
+      title: 'Review My Portfolio',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         cardTheme: CardTheme(

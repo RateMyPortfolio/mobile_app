@@ -88,8 +88,7 @@ class _PortFolioFilterPageState extends State<PortFolioFilterPage> {
                         },
                         child: Text('Apply Now'),
                         style: ElevatedButton.styleFrom(
-                          primary: Theme.of(context).primaryColor,
-                          onPrimary: Colors.white,
+                          foregroundColor: Colors.white, backgroundColor: Theme.of(context).primaryColor,
                           padding: EdgeInsets.symmetric(horizontal: Get.height * 0.14, vertical: 12),
                           textStyle: TextStyle(fontSize: 16),
                           elevation: 3.0,

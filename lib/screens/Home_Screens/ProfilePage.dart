@@ -37,173 +37,10 @@ class _PortfolioProfilePageState extends State<PortfolioProfilePage> {
     setState(() {});
   }
 
-  // Widget _buildPortfolioCard() {
-  //   return InkWell(
-  //     onTap: () {
-  //       // Get.to(() => portfolioProfileDetail(portfolio));
-  //       // arguments: {
-  //       //   'username': portfolio.username,
-  //       //   'portfolioId': portfolio.portfolioId,
-  //       //   'profileImg': portfolio.profileImg ??"",
-  //       // }
-  //     },
-  //     child: Card(
-  //       color: Color(0xffFFFFFF),
-  //       margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
-  //       shape: RoundedRectangleBorder(
-  //         borderRadius: BorderRadius.circular(8),
-  //         side: BorderSide(color: MyColor.whiteGreyColor, width: 1),
-  //       ),
-  //       elevation: 2,
-  //       child: Column(
-  //         crossAxisAlignment: CrossAxisAlignment.start,
-  //         children: [
-  //           ListTile(
-  //             contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
-  //             leading: Stack(
-  //               children: [
-  //                 CircleAvatar(
-  //                   backgroundColor: MyColor.matricsgreyColor,
-  //                   backgroundImage: controller.profileImg != null && controller.profileImg!.isNotEmpty
-  //                       ? NetworkImage(controller.profileImg!)
-  //                       : null,
-  //                 ),
-  //                 if (controller.profileImg == null || controller.profileImg!.isEmpty)
-  //                   Container(
-  //                     decoration: BoxDecoration(
-  //                       shape: BoxShape.circle,
-  //                       color: MyColor.matricsgreyColor,
-  //                     ),
-  //                     child: ClipOval(
-  //                       child: Image(
-  //                         image: portfolioprofileLogo,
-  //                         fit: BoxFit.cover,
-  //                         width: 20,
-  //                         height: 20,
-  //                       ),
-  //                     ),
-  //                   ),
-  //               ],
-  //             ),
-  //             title: Text(
-  //               '${controller.userName}',
-  //               style: TextStyle(
-  //                 color: MyColor.primaryDarkColor,
-  //                 fontWeight: FontWeight.bold,
-  //               ),
-  //             ),
-  //           ),
-  //           Divider(
-  //             color: MyColor.whiteGreyColor,
-  //             thickness: 1.0,
-  //           ),
-  //
-  //           if (controller.userUpdatedata!.description != null && controller.userUpdatedata!.description!.isNotEmpty)
-  //             Padding(
-  //               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   SizedBox(height: 4),
-  //                   Text(
-  //                     controller.userUpdatedata!.description ?? "",
-  //                     style: TextStyle(color: MyColor.textGreyColor),
-  //                   ),
-  //                   SizedBox(height: 16),
-  //                 ],
-  //               ),
-  //             ),
-  //
-  //           Padding(
-  //             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-  //             child: Column(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 Row(
-  //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                   children: [
-  //                     Column(
-  //                       crossAxisAlignment: CrossAxisAlignment.start,
-  //                       children: [
-  //                         Text(
-  //                           'Performance Metrics',
-  //                           style: TextStyle(color: MyColor.textGreyColor),
-  //                         ),
-  //                         SizedBox(height: 4),
-  //                         Text(
-  //                           controller.userUpdatedata!.performaceMetrics1 ?? "",
-  //                           style: TextStyle(color: MyColor.primaryDarkColor, fontWeight: FontWeight.bold, fontSize: 13),
-  //                         ),
-  //                       ],
-  //                     ),
-  //                     Column(
-  //                       crossAxisAlignment: CrossAxisAlignment.start,
-  //                       children: [
-  //                         Text(
-  //                           'Performance Metrics',
-  //                           style: TextStyle(color: MyColor.textGreyColor),
-  //                         ),
-  //                         SizedBox(height: 4),
-  //                         Text(
-  //                           controller.userUpdatedata!.performaceMetrics2 ?? "",
-  //                           style: TextStyle(color: MyColor.primaryDarkColor, fontWeight: FontWeight.bold, fontSize: 13),
-  //                         ),
-  //                       ],
-  //                     ),
-  //                   ],
-  //                 ),
-  //                 SizedBox(height: 16),
-  //                 Row(
-  //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                   children: [
-  //                     Padding(
-  //                       padding: const EdgeInsets.only(bottom: 16.0),
-  //                       child: Column(
-  //                         crossAxisAlignment: CrossAxisAlignment.start,
-  //                         children: [
-  //                           Text(
-  //                             'Performance Metrics',
-  //                             style: TextStyle(color: MyColor.textGreyColor),
-  //                           ),
-  //                           SizedBox(height: 4),
-  //                           Text(
-  //                             controller.userUpdatedata!.performaceMetrics3 ?? "",
-  //                             style: TextStyle(color: MyColor.primaryDarkColor, fontWeight: FontWeight.bold, fontSize: 13),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                     Padding(
-  //                       padding: const EdgeInsets.only(bottom: 16.0),
-  //                       child: Column(
-  //                         crossAxisAlignment: CrossAxisAlignment.start,
-  //                         children: [
-  //                           Text(
-  //                             'Performance Metrics',
-  //                             style: TextStyle(color: MyColor.textGreyColor),
-  //                           ),
-  //                           SizedBox(height: 4),
-  //                           Text(
-  //                             controller.userUpdatedata!.performaceMetrics4 ?? "",
-  //                             style: TextStyle(color: MyColor.primaryDarkColor, fontWeight: FontWeight.bold, fontSize: 13),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MyColor.primaryLightColor,
       appBar: AppBar(
         leadingWidth: Get.width * 0.3,
         leading: Container(
@@ -214,15 +51,11 @@ class _PortfolioProfilePageState extends State<PortfolioProfilePage> {
               Back(),
               SizedBox(width: 3),
               controller.profileImg.isEmpty
-                  ? CircleAvatar(
-                radius: 21,
-                backgroundColor: Colors.greenAccent,
-                child: Image(image: portfolioprofileLogo),
+                  ? ClipOval(
+                child: Image(image: portfolioprofileLogo,fit: BoxFit.cover,height: Get.height * 0.05,width:  Get.height * 0.05,),
               )
-                  : CircleAvatar(
-                radius: 21,
-                backgroundColor: Colors.grey.shade200,
-                child: Image.network(controller.profileImg),
+                  : ClipOval(
+                child: Image.network(controller.profileImg,fit: BoxFit.cover,height: Get.height * 0.05,width:  Get.height * 0.05,),
               ),
             ],
           ),
@@ -265,21 +98,21 @@ class _PortfolioProfilePageState extends State<PortfolioProfilePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'Your Portfolio',
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.bold,
-                color: MyColor.primaryColor,
-              ),
-            ),
-          ),
-          SizedBox(height: 10),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: Text(
+          //     'Your Portfolio',
+          //     style: TextStyle(
+          //       fontSize: 17,
+          //       fontWeight: FontWeight.bold,
+          //       color: MyColor.primaryColor,
+          //     ),
+          //   ),
+          // ),
           controller.holdingsList.isNotEmpty
               ? Expanded(
             child: ListView.builder(
+              padding: EdgeInsets.symmetric(vertical: 10),
               itemCount: controller.holdingsList.length,
               itemBuilder: (context, index) {
                 return Card(
@@ -348,7 +181,7 @@ class _PortfolioProfilePageState extends State<PortfolioProfilePage> {
                                         ),
                                       ),
                                       Text(
-                                        " ${((double.tryParse(controller.holdingsList[index].ltp!) ?? 0) < (double.tryParse(controller.holdingsList[index].averageprice!) ?? 0)) ? "-" : "+"}" +
+                                        " ${((double.tryParse(controller.holdingsList[index].ltp!) ?? 0) < (double.tryParse(controller.holdingsList[index].averageprice!) ?? 0)) ? "" : "+"}" +
                                             controller.holdingsList[index].pnlpercentage!,
                                         style: TextStyle(
                                           fontSize: 12,
@@ -399,7 +232,7 @@ class _PortfolioProfilePageState extends State<PortfolioProfilePage> {
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
-                color: MyColor.whiteDarkGreyColor,
+                color: MyColor.white,
               ),
             ),
           ),

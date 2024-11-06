@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rate_my_portfolio/resources/my_assets.dart';
 import '../utils/dialog/circular_progress_dialog.dart';
 import '../utils/dialog/ok_dialog.dart';
@@ -14,7 +15,7 @@ import 'package:http/http.dart' as http;
 class ApiClient {
   CircularProgressDialog progressDialog = CircularProgressDialog();
 
-  Future<Map<String, dynamic>?> requestPost({required String url, required String parameters,required context }) async {
+  Future<Map<String, dynamic>?> requestPost({required String url, required String parameters, required context}) async {
     progressDialog.showProgressDialog(context: context);
 
     log("API : $url");
@@ -22,8 +23,7 @@ class ApiClient {
     bool flagNet = await MyInternetConnection().isInternetAvailable();
 
     if (flagNet) {
-      String? accessToken =
-      await SHDFClass.readStringValue(KeyConstants.accesToken,"");
+      String? accessToken = await SHDFClass.readStringValue(KeyConstants.accesToken, "");
       log("accessToken : $accessToken");
 
       try {
@@ -31,9 +31,7 @@ class ApiClient {
         final results = await http.post(
           uri,
           body: parameters,
-          headers: {"Content-Type": "application/json",
-            "Authorization": "Bearer $accessToken",
-            "Access-Control-Allow-Origin": "*"},
+          headers: {"Content-Type": "application/json", "Authorization": "Bearer $accessToken", "Access-Control-Allow-Origin": "*"},
         );
 
         if (results.statusCode == 200 || results.statusCode == 401) {
@@ -50,8 +48,8 @@ class ApiClient {
             context: Get.context!,
             builder: (BuildContext context1) => OKDialog(
               title: "Failed",
-              descriptions:"Something went wrong",
-              img:errorIcon,
+              descriptions: "Something went wrong",
+              img: errorIcon,
             ),
           );
           return null;
@@ -63,8 +61,8 @@ class ApiClient {
           context: Get.context!,
           builder: (BuildContext context1) => OKDialog(
             title: "Failed",
-            descriptions:"Something went wrong",
-            img:errorIcon,
+            descriptions: "Something went wrong",
+            img: errorIcon,
           ),
         );
         return null;
@@ -78,14 +76,14 @@ class ApiClient {
         builder: (BuildContext context1) => OKDialog(
           title: "No Internet",
           descriptions: "Please check Internet Connection",
-          img:noInternetIcon,
+          img: noInternetIcon,
         ),
       );
       return null;
     }
   }
 
-  Future<Map<String, dynamic>?> requestNoloaderPost({required String url, required String parameters,context }) async {
+  Future<Map<String, dynamic>?> requestNoloaderPost({required String url, required String parameters, context}) async {
     // progressDialog.showProgressDialog();
 
     log("API : $url");
@@ -93,17 +91,14 @@ class ApiClient {
     bool flagNet = await MyInternetConnection().isInternetAvailable();
 
     if (flagNet) {
-      String? accessToken =
-      await SHDFClass.readStringValue(KeyConstants.accesToken,"");
+      String? accessToken = await SHDFClass.readStringValue(KeyConstants.accesToken, "");
       log("accessToken : $accessToken");
       try {
         Uri uri = Uri.parse(url);
         final results = await http.post(
           uri,
           body: parameters,
-          headers: {"Content-Type": "application/json",
-            "Authorization": "Bearer $accessToken",
-            "Access-Control-Allow-Origin": "*"},
+          headers: {"Content-Type": "application/json", "Authorization": "Bearer $accessToken", "Access-Control-Allow-Origin": "*"},
         );
         //print(results);
 
@@ -121,8 +116,8 @@ class ApiClient {
             context: Get.context!,
             builder: (BuildContext context1) => OKDialog(
               title: "Failed",
-              descriptions:"Something went wrong",
-              img:errorIcon,
+              descriptions: "Something went wrong",
+              img: errorIcon,
             ),
           );
           return null;
@@ -134,26 +129,102 @@ class ApiClient {
           context: Get.context!,
           builder: (BuildContext context1) => OKDialog(
             title: "Failed",
-            descriptions:"Something went wrong",
-            img:errorIcon,
+            descriptions: "Something went wrong",
+            img: errorIcon,
           ),
         );
         return null;
       }
     } else {
-       // progressDialog.close();
+      // progressDialog.close();
       log("Request API : No Internet ");
       showDialog(
         context: Get.context!,
         builder: (BuildContext context1) => OKDialog(
           title: "No Internet",
           descriptions: "Please check Internet Connection",
-          img:noInternetIcon,
+          img: noInternetIcon,
         ),
       );
       return null;
     }
   }
 
-}
+  Future<Map<String, dynamic>?> requestMultipartPost({required String url, required Map<String, dynamic> parameters,required XFile? files, required context,}) async {
+    progressDialog.showProgressDialog(context: context);
 
+    log("API : $url");
+    log("RequestData : ${parameters.toString()}");
+    bool flagNet = await MyInternetConnection().isInternetAvailable();
+
+    if (flagNet) {
+      String? accessToken = await SHDFClass.readStringValue(KeyConstants.accesToken, "");
+      log("accessToken : $accessToken");
+
+      try {
+        Uri uri = Uri.parse(url);
+        var request = http.MultipartRequest('POST', uri);
+
+        parameters.forEach((key, value) {
+          request.fields[key] = value.toString();
+        });
+
+        if (files != null) {
+          request.files.add(await http.MultipartFile.fromPath("profile_img", files.path));
+        }
+
+        // Add headers
+        request.headers.addAll({"Content-Type": "multipart/form-data", "Authorization": "Bearer $accessToken"});
+
+        final streamedResponse = await request.send();
+        final results = await http.Response.fromStream(streamedResponse);
+
+        if (results.statusCode == 200 || results.statusCode == 401) {
+          final jsonObject = json.decode(results.body);
+          log("ResponseData : ${results.body.toString()}");
+
+          progressDialog.close(context);
+          return jsonObject;
+        } else {
+          progressDialog.close(context);
+          log("Request API : ${results.body}");
+
+          showDialog(
+            context: Get.context!,
+            builder: (BuildContext context1) => OKDialog(
+              title: "Failed",
+              descriptions: "Something went wrong",
+              img: errorIcon,
+            ),
+          );
+          return null;
+        }
+      } catch (exception) {
+        log("Request API Exception: $exception");
+        progressDialog.close(context);
+        showDialog(
+          context: Get.context!,
+          builder: (BuildContext context1) => OKDialog(
+            title: "Failed",
+            descriptions: "Something went wrong",
+            img: errorIcon,
+          ),
+        );
+        return null;
+      }
+    } else {
+      progressDialog.close(context);
+      log("Request API : No Internet");
+
+      showDialog(
+        context: Get.context!,
+        builder: (BuildContext context1) => OKDialog(
+          title: "No Internet",
+          descriptions: "Please check Internet Connection",
+          img: noInternetIcon,
+        ),
+      );
+      return null;
+    }
+  }
+}

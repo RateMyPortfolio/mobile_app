@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ),
               Text(
-                'Rate My Portfolio',
+                'Review My Portfolio',
                 style: GoogleFonts.satisfy(
                   fontSize: 32,
                   height: 1,

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:image_picker/image_picker.dart';
 import '../models/request/Aboutmyportfoliorequest.dart';
 import '../models/request/LoginSignupGoogleFaceBook_Request.dart';
 import '../models/request/deleteAccountRequest.dart';
@@ -167,12 +168,13 @@ class Repository {
     return responseModel;
   }
 
-  static Future<Aboutmyportfolioresponce?> updateAboutMyPortfolio(Aboutmyportfoliorequest request, BuildContext context) async {
+  static Future<Aboutmyportfolioresponce?> updateAboutMyPortfolio(Aboutmyportfoliorequest request,XFile? profilePic, BuildContext context) async {
     Aboutmyportfolioresponce? responseModel;
 
-    final results = await ApiClient().requestPost(
+    final results = await ApiClient().requestMultipartPost(
       url: ApiConstant.UpdateAboutmyPortfolio,
-      parameters: json.encode(request.toJson()),
+      files: profilePic,
+      parameters: request.toJson(),
         context: context
     );
     if (results != null) {
